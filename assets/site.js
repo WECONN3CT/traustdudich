@@ -42,12 +42,17 @@ document.querySelectorAll('.carousel').forEach(carousel=>{
 // flip cards tap/keyboard support with debounced toggle
 document.querySelectorAll('.flip').forEach(card=>{
   let busy=false; // prevents rapid toggles causing jitter
+  const inner=card.querySelector('.flip-inner');
   const toggle=()=>{
     if(busy) return; busy=true;
     card.classList.toggle('is-flipped');
-    setTimeout(()=>busy=false, 450);
+    // force composite to avoid flicker on iOS
+    inner.style.willChange='transform';
+    setTimeout(()=>{busy=false; inner.style.willChange='auto';}, 500);
   };
-  card.addEventListener('click', toggle);
+  card.addEventListener('click', e=>{
+    e.preventDefault(); e.stopPropagation(); toggle();
+  }, {passive:false});
   card.setAttribute('tabindex','0');
   card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
 });
