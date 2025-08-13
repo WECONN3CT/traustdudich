@@ -64,6 +64,12 @@ document.querySelectorAll('.carousel .scroller img').forEach(img=>{
   img.decoding = 'async';
 });
 
+// mobile menu toggle
+const nav = document.querySelector('.nav');
+document.querySelector('.menu-btn')?.addEventListener('click',()=>{
+  nav?.classList.toggle('open');
+});
+
 // intersection reveal for sections/cards
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   const io = new IntersectionObserver(entries=>{
