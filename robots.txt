@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://traustdudich.weconn3ct.app/sitemap.xml
